@@ -8,7 +8,7 @@ Do the following steps:
     2. create .bashrc
         vi .bashrc
     3. add the following command to .bashrc
-        alias python='winpty python.exe'
+        alias python='winpty /C/Users/$USERNAME/Anaconda3/python.exe'
     4. restart git bash terminal or run
         source .bashrc 
     5. in .bash file, add 'winpty' before 'python' 
