@@ -28,7 +28,7 @@ class Email:
         self.receiver_email = receiver_email
         self.smtp_server = smtp_server
 
-    def sendemail(self, message, ssl=True):
+    def sendmail(self, message, ssl=True):
         """
         There are two ways to start a secure connection with your email server:
             1. Start an SMTP connection that is secured from the beginning using SMTP_SSL().
@@ -51,6 +51,26 @@ class Email:
                 server.sendmail(self.sender_email, self.receiver_email, message)
 
     def createmessage(self, subject):
+        """
+        Another method to create the message
+            from email.mime import EmailMessage
+            
+            msg = EmailMessage()
+            msg['Subject'] = 'Check out Bronx as a puppy!'
+            msg['From'] = EMAIL_ADDRESS
+            msg['To'] = 'YourAddress@gmail.com'
+
+            msg.set_content('This is a plain text email')
+
+            msg.add_alternative('''\
+            <!DOCTYPE html>
+            <html>
+                <body>
+                    <h1 style="color:SlateGray;">This is an HTML Email!</h1>
+                </body>
+            </html>
+            ''', subtype='html')
+        """
 
         message = MIMEMultipart("alternative")
         message["Subject"] = subject  # "multipart test"
@@ -91,8 +111,8 @@ class Email:
 
 if __name__ == "__main__":
 
-    subject = "test email"
+    subject = "'Check out Bronx as a puppy!'"
 
     email = Email(SENDER, RECEIVER)
     msg = email.createmessage(subject=subject)
-    email.sendemail(msg)
+    email.sendmail(msg)
