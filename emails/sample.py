@@ -55,14 +55,14 @@ class Email:
         Another method to create the message
             from email.mime import EmailMessage
             
-            msg = EmailMessage()
-            msg['Subject'] = 'Check out Bronx as a puppy!'
-            msg['From'] = EMAIL_ADDRESS
-            msg['To'] = 'YourAddress@gmail.com'
+            message = EmailMessage()
+            message['Subject'] = 'Check out Bronx as a puppy!'
+            message['From'] = sender_email
+            message['To'] = receiver_email
 
-            msg.set_content('This is a plain text email')
+            message.set_content('This is a plain text email')
 
-            msg.add_alternative('''\
+            message.add_alternative('''\
             <!DOCTYPE html>
             <html>
                 <body>
@@ -71,7 +71,6 @@ class Email:
             </html>
             ''', subtype='html')
         """
-
         message = MIMEMultipart("alternative")
         message["Subject"] = subject  # "multipart test"
         message["From"] = self.sender_email
@@ -101,11 +100,9 @@ class Email:
         part1 = MIMEText(text, "plain")
         part2 = MIMEText(html, "html")
 
-        # Add HTML/plain-text parts to MIMEMultipart message
-        # The email client will try to render the last part first
+        # Add HTML/plain-text parts to MIMEMultipart message. The email client will try to render the last part first
         message.attach(part1)
         message.attach(part2)
-
         return message.as_string()
 
 
@@ -114,5 +111,5 @@ if __name__ == "__main__":
     subject = "'Check out Bronx as a puppy!'"
 
     email = Email(SENDER, RECEIVER)
-    msg = email.createmessage(subject=subject)
-    email.sendmail(msg)
+    message = email.createmessage(subject=subject)
+    email.sendmail(message)
