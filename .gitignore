@@ -1,1 +1,7 @@
 .vscode
+
+.ipynb_checkpoints/*
+*.ipynb
+
+*.csv
+*.xlsx
